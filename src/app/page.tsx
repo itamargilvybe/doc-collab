@@ -16,6 +16,11 @@ export default function AppHome() {
       .select()
       .single();
 
+    if (error) {
+      console.error("Failed to create document:", error.message);
+      return;
+    }
+
     if (data) {
       router.push(`/editor/${data.id}`);
     }
