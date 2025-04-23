@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 
 export function useSocket(docId: string) {
   const socketRef = useRef<WebSocket | null>(null);
