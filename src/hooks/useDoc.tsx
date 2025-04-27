@@ -3,10 +3,12 @@ import { supabase } from "@/lib/supabase/client";
 
 export function useDocument(id: string) {
   const [content, setContent] = useState("");
+  const [loading, setLoading] = useState(false);
 
   // Fetch initial document
   useEffect(() => {
     const fetchDoc = async () => {
+      setLoading(true);
       const { data, error } = await supabase
         .from("documents")
         .select("document")
@@ -18,6 +20,7 @@ export function useDocument(id: string) {
       } else if (data) {
         setContent(data.document);
       }
+      setLoading(false);
     };
 
     fetchDoc();
@@ -74,5 +77,5 @@ export function useDocument(id: string) {
     }
   };
 
-  return { content, updateContent };
+  return { content, updateContent, loading };
 }

@@ -4,9 +4,10 @@ import { useDocument } from "@/hooks/useDoc";
 import { useTextFormatting } from "@/hooks/useTextFormatting";
 import Button from "@/components/ui/button";
 import Textarea from "./ui/text-area";
+import { Loader } from "lucide-react";
 
 export default function Editor({ docID }: { docID: string }) {
-  const { content, updateContent } = useDocument(docID);
+  const { content, updateContent, loading } = useDocument(docID);
   const { applyFormat } = useTextFormatting(content, () => {}, updateContent);
 
   const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -20,12 +21,15 @@ export default function Editor({ docID }: { docID: string }) {
         <Button onClick={() => applyFormat("bold")}>Bold</Button>
         <Button onClick={() => applyFormat("code")}>Code</Button>
       </div>
-      <Textarea
-        id="editor"
-        value={content}
-        onChange={handleChange}
-        className="w-full h-96"
-      />
+      <div className="relative">
+        <Textarea
+          id="editor"
+          value={content}
+          onChange={handleChange}
+          className="w-full h-96"
+        />
+        {loading && <Loader className="absolute top-1/2 left-1/2" />}
+      </div>
     </main>
   );
 }
