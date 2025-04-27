@@ -1,4 +1,3 @@
-// app/page.tsx (or app/app/page.tsx if you're nesting inside /app)
 "use client";
 
 import Link from "next/link";
